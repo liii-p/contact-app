@@ -6,6 +6,19 @@ import { FaTrashCan } from "react-icons/fa6";
 import Modal from "../Modal/Modal";
 
 function ContactCard({ props }) {
+  const handleDelete = (e) => {
+    try {
+      const data = fetch("http://localhost:2017/contact", {
+        method: "DELETE",
+        mode: "cors",
+      });
+      console.log("Data successfully submitted: ", data);
+    } catch (err) {
+      window.alert(
+        "Error: " + err + " Could not delete the contact. Please try again."
+      );
+    }
+  };
   return (
     <div className={styles.contactCard}>
       <div className={styles.contactCard__desc}>
@@ -33,7 +46,7 @@ function ContactCard({ props }) {
         </div>
         <div className={styles.options}>
           <div>
-            <label for="verified">Mark as verified</label>
+            <label htmlFor="verified">Mark as verified</label>
             <input type="checkbox" name="verified" />
           </div>
           <div id={styles.delete}>

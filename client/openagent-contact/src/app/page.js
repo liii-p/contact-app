@@ -1,11 +1,43 @@
 "use client";
 import styles from "./page.module.scss";
-import React from "react";
+import React, { useState } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { GiTalk, GiPostOffice } from "react-icons/gi";
 
 export default function Home() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    note: "",
+  });
+
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  //when the user types, we are updating the previously declared form data at the given name (i.e. firstName)
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await fetch("http://localhost:2017/contact", {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify(formData),
+      });
+      console.log("Data successfully submitted: ", data);
+    } catch (err) {
+      window.alert(
+        "Error: " + err + " Could not submit your details. Please try again."
+      );
+    }
+  };
+
   return (
     <div className={styles.home}>
       <section className={styles.info}>
@@ -39,7 +71,7 @@ export default function Home() {
       </section>
       <section className={styles.form__container}>
         <h2>Contact Us</h2>
-        <form action="#" method="POST" className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.firstLast}>
             <div id={styles.first}>
               <label htmlFor="firstName">First Name</label>
@@ -49,6 +81,8 @@ export default function Home() {
                 className={styles.input}
                 name="firstName"
                 placeholder="Your name..."
+                value={formData.firstName}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -60,6 +94,8 @@ export default function Home() {
                 className={styles.input}
                 name="lastName"
                 placeholder="Your last name..."
+                value={formData.lastName}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -70,6 +106,8 @@ export default function Home() {
             id={styles.email}
             className={styles.input}
             name="email"
+            value={formData.email}
+            onChange={handleChange}
             required
             placeholder="email@example.com"
           />
@@ -80,7 +118,9 @@ export default function Home() {
             pattern="[0-9]{10}"
             id={styles.number}
             className={styles.input}
-            name="phoneNum"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
             placeholder="0412345678"
             required
           />
@@ -91,6 +131,8 @@ export default function Home() {
             name="note"
             className={styles.textarea}
             placeholder="Add a note here..."
+            value={formData.note}
+            onChange={handleChange}
             style={{ height: "200px" }}
           />
           <input type="submit" id={styles.submit} />
