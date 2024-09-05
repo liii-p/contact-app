@@ -4,8 +4,6 @@
 - [Tech](#tech)
 - [API Endpoints](#api-endpoints)
 - [To Run](#to-run)
-  - [Create a Model](#create-a-model)
-- [Policies](#policies)
 
 ## Process
 
@@ -30,6 +28,15 @@ Node.js
 PostgreSQL
 
 ## API Endpoints
+
+```sh
+GET /contacts - get all contacts
+POST /contact - create contact
+PATCH /contact - update contact
+DELETE /contact - delete contact
+```
+
+I did some manual API testing via Postman during the development process.
 
 ## To Run
 
