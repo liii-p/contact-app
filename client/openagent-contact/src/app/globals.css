@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap");
+
+* {
+  font-family: "SUSE", "Franklin Gothic Medium", "Arial Narrow", Arial,
+    sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
