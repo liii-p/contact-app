@@ -4,6 +4,8 @@
 - [Tech](#tech)
 - [API Endpoints](#api-endpoints)
 - [To Run](#to-run)
+  - [Client](#client)
+  - [Server](#server)
 
 ## Process
 
@@ -27,9 +29,17 @@ Since I used Next.js to create the react app, I utilised the Next.js App router 
 
 ## Tech
 
-Express
-Node.js
-PostgreSQL
+Client:
+
+- React/Next.js
+- SASS
+- React testing library/Jest
+
+Server:
+
+- Express
+- Node.js
+- PostgreSQL
 
 ## API Endpoints
 
@@ -45,8 +55,22 @@ I did some manual API testing via Postman during the development process.
 ## To Run
 
 1. Clone the repo locally
-2. ```sh
+   Make sure you have a compatible postgreSQL database to connect the API.
+
+### Client
+
+1. ```sh
    cd client/openagent-contact
    ```
-3. In a terminal, enter "npm i"
-4. Then, enter "npm start"
+2. In a terminal, enter "npm i"
+3. Then, enter "npm run dev"
+
+### Server
+
+1. ```sh
+   cd server
+   ```
+2. In a terminal, enter "npm i"
+3. Then, enter "npm start"
+
+Please note that data is not persistent between sessions as the api drops any existing tables each time the server is started.

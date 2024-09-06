@@ -12,43 +12,44 @@ afterAll(() => {
   afterAction();
 });
 
-test("User | create", async () => {
+test("Contact | create", async () => {
   const res = await request(api)
-    .post("/public/user")
+    .post("/contact")
     .set("Accept", /json/)
     .send({
-      email: "martin@mail.com",
-      password: "securepassword",
-      password2: "securepassword",
+      firstName: "John",
+      lastName: "Doe",
+      phone: "0412345678",
+      email: "example@email.com",
+      note: "This is a note.",
     })
     .expect(200);
 
-  expect(res.body.user).toBeTruthy();
+  expect(res.body.contact).toBeTruthy();
 
-  const user = await User.findByPk(res.body.user.id);
+  const contact = await User.findByPk(res.body.contact.id);
 
-  expect(user.id).toBe(res.body.user.id);
-  expect(user.email).toBe(res.body.user.email);
+  expect(contact.id).toBe(res.body.user.id);
+  expect(contact.email).toBe(res.body.user.email);
 
-  await user.destroy();
+  await contact.destroy();
 });
 
-test("User | get all (auth)", async () => {
+test("Contact | get all", async () => {
   const user = await User.create({
-    email: "martin@mail.com",
-    password: "securepassword",
+    firstName: "Jane",
+    lastName: "Doe",
+    phone: "0412345678",
+    email: "example@gmail.com",
+    note: "This is a note.",
   });
 
   const res = await request(api)
-    .post("/public/login")
+    .get("/contacts")
     .set("Accept", /json/)
-    .send({
-      email: "martin@mail.com",
-      password: "securepassword",
-    })
     .expect(200);
 
-  expect(res.body.token).toBeTruthy();
+  expect(res.body.contact).toBeTruthy();
 
   await user.destroy();
 });
