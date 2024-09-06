@@ -13,7 +13,7 @@
   border: 2px solid grey;
   border-radius: 5px;
   background-color: rgba(23, 18, 22, 0.265);
-  min-width: 50%;
+  min-width: 60%;
   color: black;
 }
 
@@ -21,6 +21,15 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+#delete:hover {
+  cursor: pointer;
+  color: red;
+}
+
+#checkbox:hover {
+  cursor: pointer;
 }
 
 .contactCard {

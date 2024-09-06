@@ -58,11 +58,7 @@ const UserController = () => {
   const deleteContact = async (req, res) => {
     const { body } = req;
     try {
-      await Contact.destroy({
-        where: {
-          id: body.id,
-        },
-      });
+      await Contact.destroy({ body });
     } catch (err) {
       return res.status(500).json({ msg: "Internal server error" });
     }

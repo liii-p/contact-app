@@ -7,13 +7,28 @@ import Modal from "../Modal/Modal";
 
 function ContactCard({ props }) {
   const [checked, setChecked] = useState(false);
+  const [body, setBody] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    note: "",
+  });
 
   const handleDelete = () => {
+    const toDelete = setBody({
+      firstName: props.firstName,
+      lastName: props.lastName,
+      email: props.email,
+      phone: props.phone,
+      note: props.note,
+    });
     try {
       const data = fetch("http://localhost:2017/contact", {
         method: "DELETE",
+        body: JSON.stringify(toDelete),
       });
-      console.log("Data successfully submitted: ", data);
+      console.log("Data successfully deleted: ", data.body);
     } catch (err) {
       window.alert(
         "Error: " + err + " Could not delete the contact. Please try again."
@@ -56,6 +71,7 @@ function ContactCard({ props }) {
             <input
               type="checkbox"
               name="verified"
+              id={styles.checkbox}
               onClick={handleClick}
               disabled={checked}
             />
