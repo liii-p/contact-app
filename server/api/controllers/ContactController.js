@@ -37,30 +37,40 @@ const UserController = () => {
   };
 
   const updateContact = async (req, res) => {
+    const contactId = req.params.id;
     const { body } = req;
     try {
-      const contact = await Contact.update({
-        firstName: body.firstName,
-        lastName: body.lastName,
-        phone: body.phone,
-        email: body.email,
-        note: body.note,
-      });
+      const contact = await Contact.update(
+        {
+          firstName: body.firstName,
+          lastName: body.lastName,
+          phone: body.phone,
+          email: body.email,
+          note: body.note,
+        },
+        {
+          where: {
+            id: contactId,
+          },
+        }
+      );
 
       return res.status(200).json({ contact });
     } catch (err) {
       return res
         .status(500)
-        .json({ msg: "Internal server error - Unable to delete contact." });
+        .json({ msg: "Internal server error - Unable to update contact." });
     }
   };
 
   const deleteContact = async (req, res) => {
-    const { body } = req;
+    const contactId = req.params.id;
     try {
-      await Contact.destroy({ body });
+      await Contact.destroy({ where: { id: contactId } });
     } catch (err) {
-      return res.status(500).json({ msg: "Internal server error" });
+      return res
+        .status(500)
+        .json({ msg: "Internal server error - Unable to delete contact." });
     }
   };
 

@@ -1,8 +1,8 @@
 const publicRoutes = {
   "POST /contact": "ContactController.createContact",
-  "PATCH /contact": "ContactController.updateContact",
+  "PATCH /contact/:id": "ContactController.updateContact",
   "GET /contacts": "ContactController.getAllContacts",
-  "DELETE /contact": "ContactController.deleteContact",
+  "DELETE /contact/:id": "ContactController.deleteContact",
 };
 
 module.exports = publicRoutes;

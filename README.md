@@ -36,8 +36,8 @@ PostgreSQL
 ```sh
 GET /contacts - get all contacts
 POST /contact - create contact
-PATCH /contact - update contact
-DELETE /contact - delete contact
+PATCH /contact/:id - update contact
+DELETE /contact/:id - delete contact
 ```
 
 I did some manual API testing via Postman during the development process.
