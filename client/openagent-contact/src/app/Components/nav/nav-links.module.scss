@@ -2,9 +2,6 @@
   position: fixed;
   top: 0;
   right: -100%;
-  background-color: hsla (0, 0%, 6%, 0.2);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   width: 80%;
   height: 100%;
   padding: 6rem 3rem 0;
@@ -26,17 +23,13 @@
   margin: 1rem;
 }
 
-.nav__list {
-  display: flex;
-  flex-direction: column;
-}
-
 .nav__link {
   color: green;
 }
 
 .nav__link:hover {
   color: blue;
+  text-decoration: underline;
 }
 
 .nav__close {

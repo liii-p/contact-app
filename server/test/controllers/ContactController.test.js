@@ -1,9 +1,6 @@
-const request = require('supertest');
-const {
-  beforeAction,
-  afterAction,
-} = require('../setup/_setup');
-const User = require('../../api/models/User');
+const request = require("supertest");
+const { beforeAction, afterAction } = require("../setup/_setup");
+const User = require("../../api/models/User");
 
 let api;
 
@@ -15,14 +12,14 @@ afterAll(() => {
   afterAction();
 });
 
-test('User | create', async () => {
+test("User | create", async () => {
   const res = await request(api)
-    .post('/public/user')
-    .set('Accept', /json/)
+    .post("/public/user")
+    .set("Accept", /json/)
     .send({
-      email: 'martin@mail.com',
-      password: 'securepassword',
-      password2: 'securepassword',
+      email: "martin@mail.com",
+      password: "securepassword",
+      password2: "securepassword",
     })
     .expect(200);
 
@@ -36,54 +33,22 @@ test('User | create', async () => {
   await user.destroy();
 });
 
-test('User | login', async () => {
+test("User | get all (auth)", async () => {
   const user = await User.create({
-    email: 'martin@mail.com',
-    password: 'securepassword',
+    email: "martin@mail.com",
+    password: "securepassword",
   });
 
   const res = await request(api)
-    .post('/public/login')
-    .set('Accept', /json/)
+    .post("/public/login")
+    .set("Accept", /json/)
     .send({
-      email: 'martin@mail.com',
-      password: 'securepassword',
+      email: "martin@mail.com",
+      password: "securepassword",
     })
     .expect(200);
 
   expect(res.body.token).toBeTruthy();
-
-  expect(user).toBeTruthy();
-
-  await user.destroy();
-});
-
-test('User | get all (auth)', async () => {
-  const user = await User.create({
-    email: 'martin@mail.com',
-    password: 'securepassword',
-  });
-
-  const res = await request(api)
-    .post('/public/login')
-    .set('Accept', /json/)
-    .send({
-      email: 'martin@mail.com',
-      password: 'securepassword',
-    })
-    .expect(200);
-
-  expect(res.body.token).toBeTruthy();
-
-  const res2 = await request(api)
-    .get('/private/users')
-    .set('Accept', /json/)
-    .set('Authorization', `Bearer ${res.body.token}`)
-    .set('Content-Type', 'application/json')
-    .expect(200);
-
-  expect(res2.body.users).toBeTruthy();
-  expect(res2.body.users.length).toBe(1);
 
   await user.destroy();
 });

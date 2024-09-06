@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import profile from "../../img/default-profile-pic.jpg";
 import styles from "./ContactCard.module.scss";
@@ -6,11 +6,12 @@ import { FaTrashCan } from "react-icons/fa6";
 import Modal from "../Modal/Modal";
 
 function ContactCard({ props }) {
-  const handleDelete = (e) => {
+  const [checked, setChecked] = useState(false);
+
+  const handleDelete = () => {
     try {
       const data = fetch("http://localhost:2017/contact", {
         method: "DELETE",
-        mode: "cors",
       });
       console.log("Data successfully submitted: ", data);
     } catch (err) {
@@ -19,6 +20,11 @@ function ContactCard({ props }) {
       );
     }
   };
+
+  const handleClick = () => {
+    setChecked(!checked);
+  };
+
   return (
     <div className={styles.contactCard}>
       <div className={styles.contactCard__desc}>
@@ -47,10 +53,15 @@ function ContactCard({ props }) {
         <div className={styles.options}>
           <div>
             <label htmlFor="verified">Mark as verified</label>
-            <input type="checkbox" name="verified" />
+            <input
+              type="checkbox"
+              name="verified"
+              onClick={handleClick}
+              disabled={checked}
+            />
           </div>
           <div id={styles.delete}>
-            <FaTrashCan />
+            <FaTrashCan onClick={handleDelete} />
           </div>
         </div>
       </div>

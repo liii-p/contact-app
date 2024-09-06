@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { GiTalk, GiPostOffice } from "react-icons/gi";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ export default function Home() {
     phone: "",
     note: "",
   });
+  const router = useRouter();
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -31,6 +33,7 @@ export default function Home() {
         body: JSON.stringify(formData),
       });
       console.log("Data successfully submitted: ", data);
+      router.push("/thank-you");
     } catch (err) {
       window.alert(
         "Error: " + err + " Could not submit your details. Please try again."

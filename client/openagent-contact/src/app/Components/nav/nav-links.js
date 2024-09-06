@@ -1,19 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import styles from "./nav-links.module.scss";
 import logo from "../../img/openagent-logo.jpg";
-import { IoIosMenu, IoMdClose } from "react-icons/io";
 
 export function NavLinks() {
   const [showMenu, setShowMenu] = useState(false);
-  const pathname = usePathname();
   const isMobile = useMediaQuery({ maxWidth: "600px" });
-
+  // planned to implement a mobile responsive navbar
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };

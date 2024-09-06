@@ -5,7 +5,17 @@
     sans-serif;
 }
 
+@media only screen and (min-width: 700px) {
+  ul {
+    display: flex;
+    justify-content: space-around;
+    min-width: 25%;
+  }
+}
+
 ul {
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
