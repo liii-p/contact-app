@@ -15,7 +15,6 @@ export default function Home() {
     note: "",
   });
   const router = useRouter();
-
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 

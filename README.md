@@ -25,7 +25,11 @@ For the API, I decided to use a boilerplate express REST API which I could then 
 
 ### Naming Convention
 
-Since I used Next.js to create the react app, I utilised the Next.js App router which works by locating a file in any given folder called 'page.js'. To try to make it clear which page is what, I used a descriptive folder name. Files which have a descriptive name do not need to be accessed by the app router as they are only providing components, hence why they are not called 'page.js'.
+Since I used Next.js to create the react app, I utilised the Next.js App router which works by locating a file in any given folder called 'page.js'. To try to make it clear which page is what, I used a descriptive folder name. Files which have a descriptive name do not need to be accessed by the app router as they are only providing components, hence why they are not called 'page.js'. Folders that are used in routing include a "-" to imitate that of a regular url.
+
+### Testing
+
+I decided to add some test suites to this tech test with React Testing Library and Jest. Since I am using Next js, and subsequently the Next js 'App Router', I encountered an error whenever I tried to run a test: "invariant expected app router to be mounted". I struggled with this error for a while, looking at various threads and discussions as well as countless tutorials. Since I use Microsoft Edge, once fateful search on bing produced a response from MS Copilot (AI) which finally ended my struggles. I set up the **mocks**/next/navigation.js and added the code recommended by Copilot and finally the useRouter was being mocked properly and the error was finally gone. I always tread carefully with AI and tend to only use code from AI as a last resort (like in this instance).
 
 ## Tech
 
@@ -55,7 +59,9 @@ I did some manual API testing via Postman during the development process.
 ## To Run
 
 1. Clone the repo locally
-   Make sure you have a compatible postgreSQL database to connect the API.
+
+   Prerequisite: Make sure you have a postgreSQL database to which the API can connect. Customise the connection.js file as needed (i.e. change the user and password to match your postgreSQL details).
+   In a production environment, I would use github secrets for passwords and other sensitive details.
 
 ### Client
 
