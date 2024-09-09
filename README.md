@@ -67,6 +67,12 @@ I did some manual API testing via Postman during the development process.
    Prerequisite: Make sure you have a postgreSQL database to which the API can connect. Customise the connection.js file as needed (i.e. change the user and password to match your postgreSQL details).
    In a production environment, I would use github secrets for passwords and other sensitive details.
 
+   In the server folder, please edit the connection.js file located in /config. Edit the
+
+   "database: openagent"
+
+   line with your database's name, as well as the appropriate username and password.
+
 ### Client
 
 Firstly, please locate the "config.js" file and add the local port that the api will be running on. The default is "localhost:2017". If you wish to change this, go to the server folder, then "/config/index.js" and edit the "2017" part in this line:
