@@ -4,9 +4,11 @@ import profile from "../../img/default-profile-pic.jpg";
 import styles from "./ContactCard.module.scss";
 import { FaTrashCan } from "react-icons/fa6";
 import Modal from "../Modal/Modal";
+import { port } from "@/app/config";
 
 function ContactCard({ props }) {
-  const [checked, setChecked] = useState(false);
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
 
   const handleDelete = () => {
     try {
@@ -22,8 +24,18 @@ function ContactCard({ props }) {
     }
   };
 
-  const handleClick = () => {
-    setChecked(!checked);
+  const handleVerified = async () => {
+    try {
+      const data = await fetch(`http://${port}/contact/${props.id}`, {
+        method: "PATCH",
+        headers: myHeaders,
+        body: JSON.stringify({
+          verified: "true",
+        }),
+      });
+    } catch (err) {
+      window.alert("Error: " + err);
+    }
   };
 
   return (
@@ -58,8 +70,8 @@ function ContactCard({ props }) {
               type="checkbox"
               name="verified"
               id={styles.checkbox}
-              onClick={handleClick}
-              disabled={checked}
+              onClick={handleVerified}
+              disabled={props.verified}
             />
           </div>
           <div id={styles.delete}>

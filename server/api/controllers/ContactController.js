@@ -47,6 +47,7 @@ const UserController = () => {
           phone: body.phone,
           email: body.email,
           note: body.note,
+          verified: body.verified,
         },
         {
           where: {

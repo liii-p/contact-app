@@ -5,6 +5,7 @@
 - [API Endpoints](#api-endpoints)
 - [To Run](#to-run)
   - [Client](#client)
+    - [Dockerize](#dockerize)
   - [Server](#server)
 
 ## Process
@@ -29,7 +30,9 @@ Since I used Next.js to create the react app, I utilised the Next.js App router 
 
 ### Testing
 
-I decided to add some test suites to this tech test with React Testing Library and Jest. Since I am using Next js, and subsequently the Next js 'App Router', I encountered an error whenever I tried to run a test: "invariant expected app router to be mounted". I struggled with this error for a while, looking at various threads and discussions as well as countless tutorials. Since I use Microsoft Edge, once fateful search on bing produced a response from MS Copilot (AI) which finally ended my struggles. I set up the **mocks**/next/navigation.js and added the code recommended by Copilot and finally the useRouter was being mocked properly and the error was finally gone. I always tread carefully with AI and tend to only use code from AI as a last resort (like in this instance).
+I decided to add some test suites to this tech test with React Testing Library and Jest. Since I am using Next js, and subsequently the Next js 'App Router', I encountered an error whenever I tried to run a test: "invariant expected app router to be mounted". I struggled with this error for a while, looking at various threads and discussions as well as countless tutorials. It was a challenge to understand how to properly mock the app router, but eventually I found a suitable solution.
+
+For the server, tests are included for get all and create. The models are not being tested separately as they are inherently tested with the controller. For the client, tests are included for the home page and thank you page.
 
 ## Tech
 
@@ -50,10 +53,11 @@ Server:
 ```sh
 GET /contacts - get all contacts
 POST /contact - create contact
-PATCH /contact/:id - update contact
-DELETE /contact/:id - delete contact
+PATCH /contact/id - update contact
+DELETE /contact/id - delete contact
 ```
 
+I assumed that all the details being entered in the form would be necessary for the API. On the contacts list page, when the verified button is clicked, this is updated as well on the backend. In the future, I would update the UI to make it more streamlined and clear when a contact is or is not verified.
 I did some manual API testing via Postman during the development process.
 
 ## To Run
@@ -65,18 +69,49 @@ I did some manual API testing via Postman during the development process.
 
 ### Client
 
-1. ```sh
-   cd client/openagent-contact
-   ```
-2. In a terminal, enter "npm i"
-3. Then, enter "npm run dev"
+Firstly, please locate the "config.js" file and add the local port that the api will be running on. The default is "localhost:2017". If you wish to change this, go to the server folder, then "/config/index.js" and edit the "2017" part in this line:
+
+```js
+port: process.env.PORT || "2017",
+```
+
+To run via your local system:
+
+```sh
+  cd client/openagent-contact
+
+  npm i
+
+  npm run dev
+```
+
+OR to run in a Docker container:
+
+#### Dockerize
+
+To run the client app (/client/openagent-contact) in a docker container, enter in the command line:
+
+```sh
+docker build -t openagent:dev .
+
+# After it's finished building:
+docker run --publish 8080:3000 openagent:dev
+```
+
+The client is now accessible from localhost:8080.
 
 ### Server
 
-1. ```sh
-   cd server
-   ```
-2. In a terminal, enter "npm i"
-3. Then, enter "npm start"
+To run via your local system:
+
+```sh
+  cd server
+
+  npm i
+
+  npm run dev
+```
+
+I would like to containerize the server later down the track. I would need more time to understand the complexity of containerizing an express api which requires an external DB (PostgreSQL).
 
 Please note that data is not persistent between sessions as the api drops any existing tables each time the server is started.

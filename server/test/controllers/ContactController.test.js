@@ -1,6 +1,6 @@
 const request = require("supertest");
 const { beforeAction, afterAction } = require("../setup/_setup");
-const User = require("../../api/models/User");
+const Contact = require("../../api/models/Contact");
 
 let api;
 
@@ -27,16 +27,16 @@ test("Contact | create", async () => {
 
   expect(res.body.contact).toBeTruthy();
 
-  const contact = await User.findByPk(res.body.contact.id);
+  const contact = await Contact.findByPk(1);
 
-  expect(contact.id).toBe(res.body.user.id);
-  expect(contact.email).toBe(res.body.user.email);
+  expect(contact.id).toBe(1);
+  expect(contact.email).toBe(res.body.contact.email);
 
   await contact.destroy();
 });
 
 test("Contact | get all", async () => {
-  const user = await User.create({
+  const contact = await Contact.create({
     firstName: "Jane",
     lastName: "Doe",
     phone: "0412345678",
@@ -49,7 +49,7 @@ test("Contact | get all", async () => {
     .set("Accept", /json/)
     .expect(200);
 
-  expect(res.body.contact).toBeTruthy();
+  expect(res.body).toBeTruthy();
 
-  await user.destroy();
+  await contact.destroy();
 });

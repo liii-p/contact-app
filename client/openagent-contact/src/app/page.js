@@ -5,6 +5,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { GiTalk, GiPostOffice } from "react-icons/gi";
 import { useRouter } from "next/navigation";
+import { port } from "./config.js";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ export default function Home() {
     email: "",
     phone: "",
     note: "",
+    verified: false,
   });
   const router = useRouter();
   const myHeaders = new Headers();
@@ -26,17 +28,21 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await fetch("http://localhost:2017/contact", {
+      const data = await fetch(`http://${port}/contact`, {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify(formData),
       });
-      console.log("Data successfully submitted: ", data);
-      router.push("/thank-you");
+      if (data.status == "200") {
+        console.log("Data successfully submitted: ", data);
+        router.push("/thank-you");
+      } else {
+        window.alert(
+          "Error: Could not submit your details. Please ensure you enter a unique email."
+        );
+      }
     } catch (err) {
-      window.alert(
-        "Error: " + err + " Could not submit your details. Please try again."
-      );
+      window.alert("Error: " + err);
     }
   };
 

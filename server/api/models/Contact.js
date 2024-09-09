@@ -22,6 +22,9 @@ const Contact = sequelize.define(
     note: {
       type: Sequelize.STRING,
     },
+    verified: {
+      type: Sequelize.BOOLEAN,
+    },
   },
   { tableName }
 );

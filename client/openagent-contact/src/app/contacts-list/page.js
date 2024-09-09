@@ -2,12 +2,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import ContactCard from "../Components/ContactCard/ContactCard";
+import { port } from "../config.js";
 
 function ContactsList() {
   const [backendData, setBackendData] = useState([{}]);
 
   useEffect(() => {
-    fetch("http://localhost:2017/contacts")
+    fetch(`http://${port}/contacts`)
       .then(async (res) => {
         const data = await res.json();
         console.log(data);
